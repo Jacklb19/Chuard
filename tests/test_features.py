@@ -39,3 +39,13 @@ def test_transformer_clone_feature_names_and_fit_contract(customer_frame):
     assert copied.get_feature_names_out().tolist() == list(FEATURE_COLUMNS)
     assert copied.transform(customer_frame).columns.tolist() == list(FEATURE_COLUMNS)
     assert FeatureBuilder().fit_transform(customer_frame).shape[1] == 25
+
+
+def test_input_names_duplicates_and_auxiliaries_do_not_leak(customer_frame):
+    with pytest.raises(ValueError, match="duplicadas"):
+        build_features(pd.concat([customer_frame, customer_frame[["gender"]]], axis=1))
+    with pytest.raises(ValueError, match="coinciden"):
+        FeatureBuilder().fit(customer_frame).get_feature_names_out(["wrong"])
+    result = build_features(customer_frame.assign(customerID="synthetic", Churn="Yes"))
+    assert "customerID" not in result
+    assert "Churn" not in result
