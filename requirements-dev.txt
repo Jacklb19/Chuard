@@ -3,3 +3,4 @@ pytest>=8,<10
 ruff>=0.9,<1
 nbformat>=5.10,<6
 ipykernel>=6.29,<8
+nbclient>=0.10,<1

@@ -1,6 +1,8 @@
 """Contrato de entrada y normalización sin aprendizaje estadístico."""
 
 from dataclasses import asdict, dataclass
+from decimal import Decimal
+from numbers import Real
 from typing import Literal
 
 import numpy as np
@@ -66,6 +68,50 @@ OUTPUT_COLUMNS = (
     "top_factors",
     "recommendations",
 )
+FEATURE_LABELS = {
+    "gender": "Género",
+    "SeniorCitizen": "Adulto mayor",
+    "Partner": "Tiene pareja",
+    "Dependents": "Tiene dependientes",
+    "tenure": "Antigüedad (meses)",
+    "PhoneService": "Servicio de teléfono",
+    "MultipleLines": "Líneas adicionales",
+    "InternetService": "Tipo de internet",
+    "OnlineSecurity": "Seguridad en línea",
+    "OnlineBackup": "Respaldo en línea",
+    "DeviceProtection": "Protección de dispositivos",
+    "TechSupport": "Soporte técnico",
+    "StreamingTV": "Televisión por streaming",
+    "StreamingMovies": "Películas por streaming",
+    "Contract": "Tipo de contrato",
+    "PaperlessBilling": "Factura digital",
+    "PaymentMethod": "Método de pago",
+    "MonthlyCharges": "Cargo mensual",
+    "TotalCharges": "Cargos acumulados",
+    "numero_servicios": "Número de servicios",
+    "cliente_nuevo": "Cliente nuevo",
+    "contrato_mensual": "Contrato mensual",
+    "pago_automatico": "Pago automático",
+    "sin_soporte_tecnico": "Sin soporte técnico",
+    "cargo_por_servicio": "Cargo por servicio",
+}
+CATEGORY_LABELS = {
+    "Yes": "Sí",
+    "No": "No",
+    "Male": "Masculino",
+    "Female": "Femenino",
+    "No phone service": "Sin teléfono",
+    "No internet service": "Sin internet",
+    "DSL": "DSL",
+    "Fiber optic": "Fibra óptica",
+    "Month-to-month": "Mensual",
+    "One year": "Un año",
+    "Two year": "Dos años",
+    "Electronic check": "Cheque electrónico",
+    "Mailed check": "Cheque por correo",
+    "Bank transfer (automatic)": "Transferencia automática",
+    "Credit card (automatic)": "Tarjeta automática",
+}
 
 
 @dataclass(frozen=True)
@@ -96,7 +142,11 @@ class ValidatedCustomers:
 
 
 def validate_customers(
-    df: pd.DataFrame, *, mode: Literal["inference", "training"] = "inference"
+    df: pd.DataFrame,
+    *,
+    mode: Literal["inference", "training"] = "inference",
+    require_target: bool = True,
+    training_ranges: dict[str, dict[str, float]] | None = None,
 ) -> ValidatedCustomers:
     """Valida el lote completo; no retorna puntuaciones parciales ni altera df."""
     if mode not in ("training", "inference"):
@@ -131,10 +181,20 @@ def validate_customers(
         missing = original.isna() | original.map(
             lambda value: isinstance(value, str) and not value.strip()
         )
-        numeric = pd.to_numeric(original.mask(missing), errors="coerce").astype(float)
+        invalid_type = original.map(
+            lambda value: (
+                not isinstance(value, (str, Real, Decimal))
+                and value is not None
+                and value is not pd.NA
+            )
+        )
+        boolean = original.map(lambda value: isinstance(value, (bool, np.bool_)))
+        numeric = pd.to_numeric(
+            original.astype(object).mask(missing | invalid_type | boolean), errors="coerce"
+        ).astype(float)
         add(~missing & numeric.isna(), column, "Se requiere un número válido.")
         add(
-            original.map(lambda value: isinstance(value, (bool, np.bool_))),
+            boolean,
             column,
             "No se admiten booleanos como números.",
         )
@@ -181,7 +241,7 @@ def validate_customers(
         )
     if "Churn" in data:
         add(~data["Churn"].isin(YES_NO), "Churn", "Etiqueta histórica inválida.")
-    elif mode == "training":
+    elif mode == "training" and require_target:
         issues.append(ValidationIssue(None, "Churn", "Se requiere para entrenamiento."))
     if issues:
         raise InputValidationError(issues)
@@ -203,4 +263,22 @@ def validate_customers(
         ValidationIssue(int(position) + 1, "customerID", "ID repetido; use posición técnica.")
         for position in data.index[ids.duplicated(keep=False)]
     ]
+    if training_ranges is not None:
+        for column, bounds in training_ranges.items():
+            if column not in NUMERIC_COLUMNS:
+                raise ValueError(f"Rango de entrenamiento no numérico: {column}.")
+            if not isinstance(bounds, dict) or set(bounds) != {"min", "max"}:
+                raise ValueError(f"Rango inválido para {column}: se requieren min y max.")
+            lower, upper = float(bounds["min"]), float(bounds["max"])
+            if not np.isfinite([lower, upper]).all() or lower > upper:
+                raise ValueError(f"Rango de entrenamiento inválido para {column}.")
+            outside = data[column].lt(lower) | data[column].gt(upper)
+            warnings.extend(
+                ValidationIssue(
+                    int(position) + 1,
+                    column,
+                    f"Fuera del rango observado en entrenamiento [{lower:g}, {upper:g}].",
+                )
+                for position in data.index[outside]
+            )
     return ValidatedCustomers(data=data, warnings=warnings)

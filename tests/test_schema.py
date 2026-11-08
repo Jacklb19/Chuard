@@ -29,6 +29,7 @@ def test_valid_input_is_copied_and_given_id(customer_frame):
         ("tenure", 1.2),
         ("tenure", True),
         ("MonthlyCharges", np.inf),
+        ("MonthlyCharges", 1 + 2j),
         ("tenure", np.inf),
         ("TotalCharges", "texto"),
         ("SeniorCitizen", 2),
@@ -123,3 +124,12 @@ def test_csv_rejects_extra_cell_instead_of_using_it_as_an_index(customer_frame):
     malformed = f"{header}\ncontenido_ajeno,{row}\n".encode()
     with pytest.raises(InputValidationError, match="Cantidad de columnas"):
         read_customer_csv(io.BytesIO(malformed))
+
+
+def test_training_range_is_warning_not_silent_clipping(customer_frame):
+    customer_frame["tenure"] = 99
+    result = validate_customers(customer_frame, training_ranges={"tenure": {"min": 0, "max": 72}})
+    assert result.data.loc[0, "tenure"] == 99
+    assert any(issue.column == "tenure" and issue.row == 1 for issue in result.warnings)
+    with pytest.raises(ValueError, match="inválido"):
+        validate_customers(customer_frame, training_ranges={"tenure": {"min": 72, "max": 0}})

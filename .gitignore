@@ -57,3 +57,7 @@ kaggle.json
 /.codex/
 # Notebooks iniciales de planificación: publicar análisis reales cuando existan.
 /notebooks/
+
+# Resultados y recursos locales de datos/explicabilidad.
+/reports/data/
+/reports/explain/
