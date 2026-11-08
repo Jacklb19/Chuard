@@ -1,0 +1,59 @@
+# Entornos, paquetes y resultados de herramientas
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.cache/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Secretos y configuración personal
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+*credentials*.json
+kaggle.json
+*.pem
+*.key
+
+# Datos y artefactos locales: publicar solo tras revisar procedencia y tamaño
+/data/raw/*
+!/data/raw/README.md
+/data/processed/*
+!/data/processed/README.md
+/models/*
+!/models/README.md
+/reports/**/*.csv
+/reports/**/*.png
+/reports/**/*.svg
+/reports/**/*.html
+/reports/**/*.pdf
+/reports/**/splits.json
+*.joblib
+*.pkl
+*.pickle
+*.log
+
+# Material de planificación original con rutas personales; compartir manualmente.
+/analisis_churnguard/
+
+# Documentación y material de trabajo locales; solo README raíz se publica.
+*.md
+!/README.md
+/docs/
+/entrega_equipo/
+/.agents/
+/.codex/
+# Notebooks iniciales de planificación: publicar análisis reales cuando existan.
+/notebooks/
