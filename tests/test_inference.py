@@ -54,6 +54,16 @@ def test_score_matches_row_and_batch_with_explicit_shap_double(customer, monkeyp
     assert len(batch.attrs["validation_warnings"]) == 2
 
 
+def test_training_ranges_from_bundle_warn_without_clipping(customer, monkeypatch):
+    monkeypatch.setattr(inference, "explain_customer", lambda row, bundle: [])
+    bundle = synthetic_bundle()
+    bundle["training_ranges"] = {"tenure": {"min": 0, "max": 3}}
+    scored = inference.score_customers(pd.DataFrame([customer]), bundle)
+    warnings = scored.attrs["validation_warnings"]
+    assert [(item.column, item.row) for item in warnings] == [("tenure", 1)]
+    assert scored.loc[0, "tenure"] == customer["tenure"]
+
+
 def test_scoring_does_not_silently_fake_explanations(customer_frame):
     with pytest.raises(NotImplementedError, match="SHAP"):
         inference.score_customers(customer_frame, synthetic_bundle())
