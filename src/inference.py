@@ -1,4 +1,4 @@
-"""Inferencia sin fit; el scoring completo requiere SHAP real implementado."""
+"""Inferencia sin fit: valida, puntúa y explica con el bundle congelado del proyecto."""
 
 from pathlib import Path
 
@@ -56,7 +56,8 @@ def load_model_bundle(path: str) -> dict:
 
 def score_customers(df: pd.DataFrame, bundle: dict) -> pd.DataFrame:
     validate_model_bundle(bundle)
-    validated = validate_customers(df)
+    # Rangos aprendidos solo en entrenamiento: advierten, nunca recortan entradas.
+    validated = validate_customers(df, training_ranges=bundle.get("training_ranges"))
     data = validated.data
     estimator = bundle["pipeline"]
     classes = np.asarray(getattr(estimator, "classes_", []))

@@ -1,0 +1,212 @@
+{
+  "feature_columns": [
+    "gender",
+    "SeniorCitizen",
+    "Partner",
+    "Dependents",
+    "tenure",
+    "PhoneService",
+    "MultipleLines",
+    "InternetService",
+    "OnlineSecurity",
+    "OnlineBackup",
+    "DeviceProtection",
+    "TechSupport",
+    "StreamingTV",
+    "StreamingMovies",
+    "Contract",
+    "PaperlessBilling",
+    "PaymentMethod",
+    "MonthlyCharges",
+    "TotalCharges"
+  ],
+  "model_name": "xgboost__sin_derivadas",
+  "model_version": "1.0.0",
+  "contract_version": "0.1.0",
+  "decision_threshold": 0.25,
+  "risk_limits": {
+    "medium": 0.35,
+    "high": 0.65
+  },
+  "risk_limits_origin": "Valores iniciales de src/config.py.",
+  "model_family": "xgboost",
+  "model_label": "XGBoost",
+  "model_variant": "sin_derivadas",
+  "use_derived": false,
+  "classes": [
+    0,
+    1
+  ],
+  "positive_class": 1,
+  "calibration": {
+    "method": "sigmoid",
+    "cv_folds": 5,
+    "ensemble": false,
+    "fitted_on": "train"
+  },
+  "hyperparameters": {
+    "classifier__subsample": 0.7,
+    "classifier__scale_pos_weight": 2.769,
+    "classifier__n_estimators": 200,
+    "classifier__max_depth": 6,
+    "classifier__learning_rate": 0.01
+  },
+  "training_ranges": {
+    "SeniorCitizen": {
+      "min": 0.0,
+      "max": 1.0
+    },
+    "tenure": {
+      "min": 0.0,
+      "max": 72.0
+    },
+    "MonthlyCharges": {
+      "min": 18.4,
+      "max": 118.75
+    },
+    "TotalCharges": {
+      "min": 0.0,
+      "max": 8684.8
+    }
+  },
+  "recommendation_context": {
+    "high_monthly_charges": 90.1,
+    "high_monthly_charges_rule": "Q3 de MonthlyCharges del entrenamiento; propuesta comercial."
+  },
+  "dataset_sha256": "88be4b93fbe0cc83421af1c503794c97c342eca914c1576db7c276e61d61358a",
+  "split_manifest_sha256": "ea6ea1b7706099c28df9be2eb3a7e5fd30ff4cdb732d692467ef8d466c862b82",
+  "candidate_sha256": "82be78734a2698d264b141b365d19543ee55cd11d853975b9b88afaa5718b8cb",
+  "validation_report_sha256": "81f913d273ec4dd51cc8c105c3d637770977f982f88fe60c30b21bb812077dba",
+  "experiment_sha256": "2019bcb0e8899527d1234fbbaf261984dab0e8cc6f68df80176c3490ec7ca3c3",
+  "random_state": 42,
+  "environment": {
+    "python": "3.11.16",
+    "libraries": {
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "scikit-learn": "1.9.1",
+      "xgboost": "3.2.0",
+      "lightgbm": "4.7.0",
+      "shap": "0.51.0",
+      "joblib": "1.6.0"
+    }
+  },
+  "protocol": {
+    "partition": "60/20/20 estratificada, semilla única del manifiesto",
+    "search": "RandomizedSearchCV, 20 combinaciones, StratifiedKFold(5) solo en entrenamiento; métrica F1 de Churn=1",
+    "calibration": "Predicciones fuera de fold en entrenamiento; sigmoid (CalibratedClassifierCV ensemble=False, CV interna 5) si Brier y log-loss mejoran ≥ 1%; SVM siempre usa Platt",
+    "threshold": "Máximo F1 positivo en la rejilla; empate → más cercano a tie_target, luego menor.",
+    "selection": "F1 de validación; empates → ROC-AUC → Recall → estabilidad CV → parsimonia. Tolerancia de empate 0.005.",
+    "test": "Una sola evaluación del ganador congelado; sin reajuste posterior.",
+    "random_state": 42,
+    "threshold_grid": [
+      0.05,
+      0.95,
+      91
+    ]
+  },
+  "selection_trace": [
+    "F1 validación: mejor 0.6557; quedan 5 dentro de ±0.005 (random_forest__sin_derivadas, random_forest__con_derivadas, lightgbm__con_derivadas, xgboost__sin_derivadas, xgboost__con_derivadas).",
+    "ROC-AUC validación: mejor 0.8583; quedan 5 dentro de ±0.005 (random_forest__sin_derivadas, random_forest__con_derivadas, lightgbm__con_derivadas, xgboost__sin_derivadas, xgboost__con_derivadas).",
+    "Recall validación: mejor 0.8235; quedan 1 dentro de ±0.005 (xgboost__sin_derivadas)."
+  ],
+  "metrics": {
+    "cv_train": {
+      "f1": {
+        "mean": 0.6297841646888933,
+        "std": 0.014257040605129324,
+        "folds": [
+          0.623574144486692,
+          0.6557971014492754,
+          0.6303939962476548,
+          0.6263736263736264,
+          0.6127819548872181
+        ]
+      },
+      "roc_auc": {
+        "mean": 0.8446811124839526,
+        "std": 0.01124654146270688,
+        "folds": [
+          0.84330429031516,
+          0.8614166379112032,
+          0.8495442259029216,
+          0.8423913043478262,
+          0.8267491039426522
+        ]
+      },
+      "recall": {
+        "mean": 0.7556031746031746,
+        "std": 0.029538107243719035,
+        "folds": [
+          0.7321428571428571,
+          0.8080357142857143,
+          0.75,
+          0.7633928571428571,
+          0.7244444444444444
+        ]
+      }
+    },
+    "validation": {
+      "accuracy": 0.765791341376863,
+      "precision": 0.5384615384615384,
+      "recall": 0.8235294117647058,
+      "f1": 0.6511627906976745,
+      "roc_auc": 0.8560567309927922,
+      "average_precision": 0.6689202627887382,
+      "confusion_matrix": [
+        [
+          771,
+          264
+        ],
+        [
+          66,
+          308
+        ]
+      ],
+      "decision_threshold": 0.25,
+      "positive_predictions": 572,
+      "rows": 1409,
+      "brier": 0.1315522264685621,
+      "log_loss": 0.40802551683331245
+    },
+    "test": {
+      "accuracy": 0.7416607523066004,
+      "precision": 0.5084745762711864,
+      "recall": 0.8021390374331551,
+      "f1": 0.6224066390041494,
+      "roc_auc": 0.8297036864811801,
+      "average_precision": 0.6229594559512782,
+      "decision_threshold": 0.25,
+      "brier": 0.1423936824319376,
+      "log_loss": 0.4358693464715299,
+      "rows": 1409,
+      "positives": 374,
+      "model_name": "xgboost__sin_derivadas",
+      "model_sha256": "0bb0a8542c14f3e23e2fd779fc8b3dd2c488c6c28db069411d23e84b28d1cea1",
+      "true_negatives": 745,
+      "false_positives": 290,
+      "false_negatives": 74,
+      "true_positives": 300
+    }
+  },
+  "frozen_at_utc": "2026-11-09T21:55:33.256464+00:00",
+  "file": "best_model.joblib",
+  "model_sha256": "0bb0a8542c14f3e23e2fd779fc8b3dd2c488c6c28db069411d23e84b28d1cea1",
+  "explanation": {
+    "method": "permutation",
+    "scale": "probability",
+    "background_rows": 100,
+    "background_origin": "training"
+  },
+  "validation_checks": {
+    "reload_identical": true,
+    "individual_batch_rows": 5,
+    "shap_probability_additivity": true
+  },
+  "reserved_test": {
+    "status": "evaluated",
+    "report": "reports/evaluation/prueba_final.csv",
+    "evaluated_at_utc": "2026-11-09T21:55:55.980493+00:00",
+    "report_sha256": "27c6bbe5753e3918803feb22a8612d0e2d9c72d6e116293601aa28c501e13345"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "method": "permutation",
+  "scale": "probability",
+  "explained_output": "churn_probability",
+  "model_scope": "complete_estimator",
+  "rows": 100,
+  "customer_position": 0,
+  "causal_effects_proven": false,
+  "base_value": 0.2554170915928155,
+  "explained_value": 0.06640177216274994,
+  "churn_probability": 0.06640177216274994
+}

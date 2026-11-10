@@ -1,0 +1,159 @@
+{
+  "purpose": "Reproducción del protocolo previo, sin nueva selección de producción.",
+  "started_at_utc": "2026-11-10T20:38:58.979929+00:00",
+  "dataset_sha256": "88be4b93fbe0cc83421af1c503794c97c342eca914c1576db7c276e61d61358a",
+  "split_manifest_sha256": "ea6ea1b7706099c28df9be2eb3a7e5fd30ff4cdb732d692467ef8d466c862b82",
+  "model_sha256": "0bb0a8542c14f3e23e2fd779fc8b3dd2c488c6c28db069411d23e84b28d1cea1",
+  "test_report_sha256": "27c6bbe5753e3918803feb22a8612d0e2d9c72d6e116293601aa28c501e13345",
+  "test_rows_available_to_experiment": false,
+  "n_iter": 20,
+  "n_jobs": 2,
+  "completed_at_utc": "2026-11-10T20:48:41.696824+00:00",
+  "reproduced_winner": "xgboost__sin_derivadas",
+  "production_winner": "xgboost__sin_derivadas",
+  "all_candidates_match": true,
+  "candidates": [
+    {
+      "candidate": "random_forest__sin_derivadas",
+      "matches": true,
+      "differences": {
+        "accuracy": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": 0.0,
+        "average_precision": 0.0,
+        "brier": 0.0
+      }
+    },
+    {
+      "candidate": "random_forest__con_derivadas",
+      "matches": true,
+      "differences": {
+        "accuracy": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": 0.0,
+        "average_precision": 0.0,
+        "brier": 0.0
+      }
+    },
+    {
+      "candidate": "xgboost__con_derivadas",
+      "matches": true,
+      "differences": {
+        "accuracy": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": 0.0,
+        "average_precision": 0.0,
+        "brier": 0.0
+      }
+    },
+    {
+      "candidate": "lightgbm__con_derivadas",
+      "matches": true,
+      "differences": {
+        "accuracy": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": 0.0,
+        "average_precision": 0.0,
+        "brier": 0.0
+      }
+    },
+    {
+      "candidate": "xgboost__sin_derivadas",
+      "matches": true,
+      "differences": {
+        "accuracy": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": 0.0,
+        "average_precision": 0.0,
+        "brier": 0.0
+      }
+    },
+    {
+      "candidate": "logistic_regression__con_derivadas",
+      "matches": true,
+      "differences": {
+        "accuracy": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": 0.0,
+        "average_precision": 0.0,
+        "brier": 0.0
+      }
+    },
+    {
+      "candidate": "svm__sin_derivadas",
+      "matches": true,
+      "differences": {
+        "accuracy": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": 0.0,
+        "average_precision": 0.0,
+        "brier": 0.0
+      }
+    },
+    {
+      "candidate": "logistic_regression__sin_derivadas",
+      "matches": true,
+      "differences": {
+        "accuracy": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": 0.0,
+        "average_precision": 0.0,
+        "brier": 0.0
+      }
+    },
+    {
+      "candidate": "svm__con_derivadas",
+      "matches": true,
+      "differences": {
+        "accuracy": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": 0.0,
+        "average_precision": 0.0,
+        "brier": 0.0
+      }
+    },
+    {
+      "candidate": "lightgbm__sin_derivadas",
+      "matches": true,
+      "differences": {
+        "accuracy": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": 0.0,
+        "average_precision": 0.0,
+        "brier": 0.0
+      }
+    }
+  ],
+  "immutable_inputs_verified": true,
+  "historical_metrics_and_confusion_counts_match": true,
+  "winner_cv_folds_and_hyperparameters_match": true,
+  "output_sha256": {
+    "experiment.json": "b80749caf6073b2384c422a8810eae636282bb83100aee0641415dbb91ecf222",
+    "metricas_modelos.csv": "547a30a02733a32f957a3ae487bad4b946fe8f6625aa61a5b1e0cb129ce4ca87",
+    "search_cv_results.csv": "33e0657e62d316b660f572fc519df9a8a9ebe676de88dc532ad2b25128037372",
+    "validation_probabilities.csv": "573c2e75c0e57768396e0b7d265fc9a733bc4d1711ef819fbbfb3c8e560cdac3",
+    "figures\\calibracion_entrenamiento_oof.png": "a3acbc13e5da95478a26b56b0c02d9c4c36b685ca98514831864401cc6587244",
+    "figures\\matriz_validacion_ganador.png": "0ea7b8d24e3d4d216ee8075fdd391aa5428800d71d8be79d052ad164e727eb50",
+    "figures\\roc_validacion.png": "d0b528f0d4cb44edc91a54a3f4d9901589701eaaa7ae300aad6204535ed5a807"
+  }
+}

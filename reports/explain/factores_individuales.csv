@@ -1,0 +1,6 @@
+feature,value,label,display_value,direction,contribution,scale,explained_output,model_scope,base_value,explained_value,remaining_contribution
+Contract,Two year,Tipo de contrato,Dos años,disminuye,-0.19919494684308894,probability,churn_probability,complete_estimator,0.2554170915928155,0.06640177216274994,-0.009597950042628006
+MonthlyCharges,105.45,Cargo mensual,105.45,aumenta,0.04244089904108929,probability,churn_probability,complete_estimator,0.2554170915928155,0.06640177216274994,-0.009597950042628006
+tenure,26.0,Antigüedad (meses),26.0,disminuye,-0.022780637659966206,probability,churn_probability,complete_estimator,0.2554170915928155,0.06640177216274994,-0.009597950042628006
+InternetService,Fiber optic,Tipo de internet,Fibra óptica,aumenta,0.020514901376801523,probability,churn_probability,complete_estimator,0.2554170915928155,0.06640177216274994,-0.009597950042628006
+TechSupport,Yes,Soporte técnico,Sí,disminuye,-0.020397585302273372,probability,churn_probability,complete_estimator,0.2554170915928155,0.06640177216274994,-0.009597950042628006

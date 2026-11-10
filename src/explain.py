@@ -2,6 +2,7 @@
 
 import hashlib
 import json
+import re
 import threading
 from collections import OrderedDict
 from dataclasses import dataclass
@@ -21,6 +22,8 @@ from src.config import (
     SHAP_ADDITIVITY_ATOL,
     SHAP_BACKGROUND_SIZE,
     SHAP_CACHE_SIZE,
+    SHAP_GLOBAL_DISPLAY_FEATURES,
+    SHAP_LOCAL_DISPLAY_FEATURES,
     SHAP_MAX_EVALS,
     SHAP_MAX_GLOBAL_ROWS,
     SHAP_ZERO_TOLERANCE,
@@ -428,13 +431,17 @@ def save_explanation_plots(
         feature_names=[FEATURE_LABELS[name] for name in result.values.columns],
     )
     unit = "log-odds" if result.scale == "log_odds" else "probabilidad"
-    axis = shap.plots.beeswarm(explanation, max_display=15, show=False)
+    axis = shap.plots.beeswarm(explanation, max_display=SHAP_GLOBAL_DISPLAY_FEATURES, show=False)
     axis.set_title(f"SHAP global — {unit}; n={len(result.values)}")
     axis.set_xlabel(f"Contribución SHAP ({unit})")
+    _translate_shap_axes(axis.figure)
     axis.figure.savefig(output / "shap_global.png", dpi=FIGURE_DPI, bbox_inches="tight")
     plt.close(axis.figure)
-    axis = shap.plots.waterfall(explanation[customer_position], max_display=10, show=False)
+    axis = shap.plots.waterfall(
+        explanation[customer_position], max_display=SHAP_LOCAL_DISPLAY_FEATURES, show=False
+    )
     axis.set_title(f"Explicación individual — {unit}")
+    _translate_shap_axes(axis.figure)
     axis.figure.savefig(output / "shap_individual.png", dpi=FIGURE_DPI, bbox_inches="tight")
     plt.close(axis.figure)
     result.values.to_csv(output / "shap_values.csv", index=False)
@@ -454,3 +461,18 @@ def save_explanation_plots(
         json.dumps(metadata, ensure_ascii=False, indent=2), encoding="utf-8"
     )
     return metadata
+
+
+def _translate_shap_axes(figure) -> None:
+    """Traduce etiquetas de la biblioteca sin alterar los valores ni su escala."""
+    for axis in figure.axes:
+        labels = []
+        for item in axis.get_yticklabels():
+            label = item.get_text()
+            label = re.sub(r"Sum of (\d+) other features", r"Suma de \1 variables restantes", label)
+            label = label.replace("other features", "variables restantes")
+            label = {"High": "Alto", "Low": "Bajo"}.get(label, label)
+            labels.append(label)
+        axis.set_yticks(axis.get_yticks(), labels=labels)
+        if axis.get_ylabel() == "Feature value":
+            axis.set_ylabel("Valor de la variable")

@@ -1,0 +1,55 @@
+{
+  "model_name": "xgboost__sin_derivadas",
+  "model_sha256": "0bb0a8542c14f3e23e2fd779fc8b3dd2c488c6c28db069411d23e84b28d1cea1",
+  "dataset_sha256": "88be4b93fbe0cc83421af1c503794c97c342eca914c1576db7c276e61d61358a",
+  "split_manifest_sha256": "ea6ea1b7706099c28df9be2eb3a7e5fd30ff4cdb732d692467ef8d466c862b82",
+  "validation_reproduced": true,
+  "test_reevaluated": false,
+  "test_source": "prueba_final.csv verificado; no se predicen filas de prueba",
+  "validation": {
+    "accuracy": 0.765791341376863,
+    "precision": 0.5384615384615384,
+    "recall": 0.8235294117647058,
+    "f1": 0.6511627906976745,
+    "roc_auc": 0.8560567309927922,
+    "average_precision": 0.6689202627887382,
+    "confusion_matrix": [
+      [
+        771,
+        264
+      ],
+      [
+        66,
+        308
+      ]
+    ],
+    "decision_threshold": 0.25,
+    "positive_predictions": 572,
+    "rows": 1409,
+    "brier": 0.1315522264685621,
+    "log_loss": 0.40802551683331245
+  },
+  "shap": {
+    "method": "permutation",
+    "scale": "probability",
+    "explained_output": "churn_probability",
+    "model_scope": "complete_estimator",
+    "rows": 100,
+    "customer_position": 0,
+    "causal_effects_proven": false,
+    "base_value": 0.2554170915928155,
+    "explained_value": 0.06640177216274994,
+    "churn_probability": 0.06640177216274994
+  },
+  "shap_seconds": 48.81729059999998,
+  "shap_max_reconstruction_error": 2.1094237467877974e-15,
+  "shap_sample_origin": "training",
+  "individual_batch_rows": 3,
+  "limitations": [
+    "Las bandas 0.35/0.65 son convenciones operativas, no umbrales optimizados.",
+    "SHAP describe el modelo; las coaliciones pueden romper dependencias entre servicios.",
+    "El coste SHAP medido en esta máquina no garantiza tiempos de la web.",
+    "No se dispone de probabilidades originales de prueba para reconstruir su curva ROC.",
+    "Los archivos originales de CV no se recuperaron; la reproducción se entrega aparte."
+  ]
+}

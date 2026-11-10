@@ -27,7 +27,7 @@ kaggle.json
 *.pem
 *.key
 
-# Datos y artefactos locales: publicar solo tras revisar procedencia y tamaño
+# Datos y artefactos nuevos: publicar solo tras revisar procedencia y tamaño
 /data/raw/*
 !/data/raw/README.md
 /data/processed/*
@@ -58,6 +58,48 @@ kaggle.json
 # Notebooks iniciales de planificación: publicar análisis reales cuando existan.
 /notebooks/
 
-# Resultados y recursos locales de datos/explicabilidad.
-/reports/data/
-/reports/explain/
+# Los resultados permanecen ignorados salvo las rutas aprobadas más abajo.
+/reports/**
+
+# Entrega aprobada: ganador y resultados verificados (no habilita archivos futuros).
+!/models/best_model.joblib
+!/models/best_model.manifest.json
+!/reports/evaluation/
+!/reports/explain/
+!/reports/modeling/
+!/reports/modeling/reproduction_20261110_reanudada/
+!/reports/modeling/reproduction_20261110_reanudada/figures/
+!/reports/evaluation/calibracion_ganador_validacion.png
+!/reports/evaluation/comparacion_validacion.png
+!/reports/evaluation/matriz_prueba_final_guardada.png
+!/reports/evaluation/matriz_validacion_lightgbm__con_derivadas.png
+!/reports/evaluation/matriz_validacion_lightgbm__sin_derivadas.png
+!/reports/evaluation/matriz_validacion_logistic_regression__con_derivadas.png
+!/reports/evaluation/matriz_validacion_logistic_regression__sin_derivadas.png
+!/reports/evaluation/matriz_validacion_random_forest__con_derivadas.png
+!/reports/evaluation/matriz_validacion_random_forest__sin_derivadas.png
+!/reports/evaluation/matriz_validacion_svm__con_derivadas.png
+!/reports/evaluation/matriz_validacion_svm__sin_derivadas.png
+!/reports/evaluation/matriz_validacion_xgboost__con_derivadas.png
+!/reports/evaluation/matriz_validacion_xgboost__sin_derivadas.png
+!/reports/evaluation/probabilidades_validacion_ganador.csv
+!/reports/evaluation/prueba_final.csv
+!/reports/evaluation/roc_ganador_validacion.png
+!/reports/evaluation/validacion_candidatos.csv
+!/reports/evaluation/verificacion_ganador.json
+!/reports/explain/clientes_muestra.csv
+!/reports/explain/explanation_metadata.json
+!/reports/explain/factores_individuales.csv
+!/reports/explain/shap_global.png
+!/reports/explain/shap_individual.png
+!/reports/explain/shap_values.csv
+!/reports/metricas_modelos.csv
+!/reports/modeling/reproduction_20261110_reanudada/experiment.json
+!/reports/modeling/reproduction_20261110_reanudada/figures/calibracion_entrenamiento_oof.png
+!/reports/modeling/reproduction_20261110_reanudada/figures/matriz_validacion_ganador.png
+!/reports/modeling/reproduction_20261110_reanudada/figures/roc_validacion.png
+!/reports/modeling/reproduction_20261110_reanudada/metricas_modelos.csv
+!/reports/modeling/reproduction_20261110_reanudada/reproduction_provenance.json
+!/reports/modeling/reproduction_20261110_reanudada/search_cv_results.csv
+!/reports/modeling/reproduction_20261110_reanudada/validation_probabilities.csv
+!/reports/modeling/splits.json
