@@ -1,0 +1,4 @@
+Contract,n,churn_count,churn_rate,small_segment
+Month-to-month,2304,992,0.4305555555555556,False
+One year,896,99,0.11049107142857142,False
+Two year,1025,30,0.02926829268292683,False

@@ -1,0 +1,4 @@
+InternetService,n,churn_count,churn_rate,small_segment
+DSL,1436,274,0.19080779944289694,False
+Fiber optic,1859,779,0.4190424959655729,False
+No,930,68,0.07311827956989247,False

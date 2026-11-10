@@ -55,8 +55,8 @@ kaggle.json
 /entrega_equipo/
 /.agents/
 /.codex/
-# Notebooks iniciales de planificación: publicar análisis reales cuando existan.
-/notebooks/
+# Notebooks nuevos se revisan antes de publicar; excepciones académicas al final.
+/notebooks/**
 
 # Los resultados permanecen ignorados salvo las rutas aprobadas más abajo.
 /reports/**
@@ -103,3 +103,30 @@ kaggle.json
 !/reports/modeling/reproduction_20261110_reanudada/search_cv_results.csv
 !/reports/modeling/reproduction_20261110_reanudada/validation_probabilities.csv
 !/reports/modeling/splits.json
+
+# Entrega académica aprobada: fuentes, ejecuciones comprobadas y EDA definitivo.
+!/notebooks/01_eda_limpieza.ipynb
+!/notebooks/02_modelos_evaluacion.ipynb
+!/notebooks/03_interpretabilidad.ipynb
+!/reports/data/
+!/reports/data/01_eda_limpieza_ejecutado.ipynb
+!/reports/evaluation/02_modelos_evaluacion_ejecutado.ipynb
+!/reports/explain/03_interpretabilidad_ejecutado.ipynb
+!/reports/data/01_distribucion_churn.png
+!/reports/data/02_abandono_Contract.png
+!/reports/data/03_abandono_PaymentMethod.png
+!/reports/data/04_abandono_InternetService.png
+!/reports/data/05_abandono_TechSupport.png
+!/reports/data/06_tenure_por_clase.png
+!/reports/data/07_MonthlyCharges_por_clase.png
+!/reports/data/08_TotalCharges_por_clase.png
+!/reports/data/09_correlaciones.png
+!/reports/data/correlations_training.csv
+!/reports/data/eda_manifest.json
+!/reports/data/quality_report.json
+!/reports/data/segments_Contract.csv
+!/reports/data/segments_InternetService.csv
+!/reports/data/segments_PaymentMethod.csv
+!/reports/data/segments_TechSupport.csv
+!/reports/data/source_manifest.json
+!/reports/data/training_summary.json

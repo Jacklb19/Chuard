@@ -1,0 +1,56 @@
+{
+  "dataset_sha256": "88be4b93fbe0cc83421af1c503794c97c342eca914c1576db7c276e61d61358a",
+  "manifest_sha256": "ea6ea1b7706099c28df9be2eb3a7e5fd30ff4cdb732d692467ef8d466c862b82",
+  "split_status": "estado_no_documentado",
+  "training_rows": 4225,
+  "validation_and_test_used_for_eda": false,
+  "figures": [
+    "01_distribucion_churn.png",
+    "02_abandono_Contract.png",
+    "03_abandono_PaymentMethod.png",
+    "04_abandono_InternetService.png",
+    "05_abandono_TechSupport.png",
+    "06_tenure_por_clase.png",
+    "07_MonthlyCharges_por_clase.png",
+    "08_TotalCharges_por_clase.png",
+    "09_correlaciones.png"
+  ],
+  "conclusions": [
+    {
+      "figure": "01_distribucion_churn.png",
+      "conclusion": "Abandonaron 1121 de 4225 clientes (26.5%); hay desbalance de clases."
+    },
+    {
+      "figure": "02_abandono_Contract.png",
+      "conclusion": "Month-to-month: 43.1% (n=2304); Two year: 2.9% (n=1025). Es una asociación histórica, no una causa demostrada."
+    },
+    {
+      "figure": "03_abandono_PaymentMethod.png",
+      "conclusion": "Electronic check: 45.6% (n=1410); Credit card (automatic): 15.0% (n=915). Es una asociación histórica, no una causa demostrada."
+    },
+    {
+      "figure": "04_abandono_InternetService.png",
+      "conclusion": "Fiber optic: 41.9% (n=1859); No: 7.3% (n=930). Es una asociación histórica, no una causa demostrada."
+    },
+    {
+      "figure": "05_abandono_TechSupport.png",
+      "conclusion": "No: 42.4% (n=2040); No internet service: 7.3% (n=930). Es una asociación histórica, no una causa demostrada."
+    },
+    {
+      "figure": "06_tenure_por_clase.png",
+      "conclusion": "Mediana de tenure: No=38.00, Yes=10.00 meses. Los valores atípicos se muestran, no se eliminan."
+    },
+    {
+      "figure": "07_MonthlyCharges_por_clase.png",
+      "conclusion": "Mediana de MonthlyCharges: No=64.40, Yes=80.00 unidades monetarias/mes. Los valores atípicos se muestran, no se eliminan."
+    },
+    {
+      "figure": "08_TotalCharges_por_clase.png",
+      "conclusion": "Mediana de TotalCharges: No=1672.10, Yes=692.10 unidades monetarias acumuladas. Los valores atípicos se muestran, no se eliminan."
+    },
+    {
+      "figure": "09_correlaciones.png",
+      "conclusion": "Las correlaciones son descriptivas y no prueban causalidad. Churn se codifica No=0, Yes=1; SeniorCitizen es un indicador binario."
+    }
+  ]
+}

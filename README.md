@@ -2,7 +2,27 @@
 
 Proyecto académico de minería de datos para estimar abandono de clientes de telecomunicaciones, comparar cinco algoritmos y presentar explicaciones y sugerencias de retención.
 
-**Estado:** datos, EDA, entrenamiento, evaluación, inferencia y SHAP integrados. Se incluye un ganador verificado: XGBoost sin derivadas, calibración sigmoid, versión 1.0.0 y umbral 0.25, junto con sus resultados científicos aprobados. Se reprodujeron los diez candidatos usando solo entrenamiento/validación y coinciden con los reportes anteriores. La interfaz web sigue pendiente; `app.py` todavía informa esa situación. Datos crudos, notebooks y documentos privados permanecen fuera de GitHub.
+**Estado:** datos, EDA, entrenamiento, evaluación, inferencia y SHAP integrados. Se incluye un ganador verificado: XGBoost sin derivadas, calibración sigmoid, versión 1.0.0 y umbral 0.25, junto con sus resultados científicos, los tres notebooks y sus ejecuciones. Se reprodujeron los diez candidatos usando solo entrenamiento/validación y coinciden con los reportes anteriores. La interfaz web sigue pendiente; `app.py` todavía informa esa situación. Datos crudos y documentos privados permanecen fuera de GitHub.
+
+## Entrega académica al docente
+
+Esta lista sigue la especificación del proyecto Chuard; no sustituye una rúbrica adicional del docente. **La parte científica está disponible, pero la entrega final todavía necesita la aplicación, el informe PDF y la demostración del frente 3.**
+
+| Entregable | Ubicación | Estado comprobado |
+|---|---|---|
+| Código, dependencias y pruebas | [`src/`](src/), [`tests/`](tests/), `requirements*.txt` | Implementados; 72 pruebas pasan, Ruff y formato correctos |
+| Dataset documentado y calidad | [Fuente y descarga](#dataset-y-preparación), [reporte de calidad](reports/data/quality_report.json), [procedencia](reports/data/source_manifest.json) | CSV original obtenido aparte; fuente, huella, esquema, nulos y duplicados documentados |
+| Limpieza, EDA y derivadas | [Notebook 01](notebooks/01_eda_limpieza.ipynb), [ejecución](reports/data/01_eda_limpieza_ejecutado.ipynb), [figuras y tablas](reports/data/) | Ejecutado; nueve figuras basadas solo en entrenamiento |
+| Cinco modelos y evaluación | [Notebook 02](notebooks/02_modelos_evaluacion.ipynb), [ejecución](reports/evaluation/02_modelos_evaluacion_ejecutado.ipynb), [métricas](reports/metricas_modelos.csv), [reproducción](reports/modeling/reproduction_20261110_reanudada/) | Diez candidatos, CV, calibración, umbrales, selección y prueba final guardada |
+| Modelo exportado | [Ganador](models/best_model.joblib), [manifiesto](models/best_model.manifest.json) | Pipeline congelado, versiones, umbral y huellas verificados |
+| Explicabilidad | [Notebook 03](notebooks/03_interpretabilidad.ipynb), [ejecución](reports/explain/03_interpretabilidad_ejecutado.ipynb), [SHAP](reports/explain/) | Global e individual sobre probabilidad calibrada; reconstrucción comprobada |
+| Aplicación y aceptación | `app.py` y futuros componentes web | Pendiente del frente 3: formulario, CSV, dashboard, explicaciones y retención |
+| Informe final | `reports/informe_final.pdf` | Pendiente del frente 3 |
+| Publicación y demostración | URL de la aplicación y prueba de sus flujos | Pendiente; no hay enlace funcional verificado |
+
+Para la sustentación, recorrer notebooks 01 → 02 → 03: problema y objetivo; calidad/limpieza de datos; prevención de fuga; comparación de cinco familias con/sin derivadas; selección del ganador y umbral; errores FP/FN; explicación SHAP y límites. Después demostrar la aplicación cuando el frente 3 la termine. No presentar las recomendaciones como efectos de retención comprobados ni las métricas históricas como garantías futuras.
+
+La documentación académica disponible se centraliza aquí y en los notebooks. Los documentos privados de coordinación, prompts, archivos de agentes, entornos y cachés permanecen fuera del repositorio.
 
 ## Instalación
 
@@ -101,7 +121,7 @@ La prueba final fue realizada el **9 de noviembre de 2026**; aquí se verifica y
 
 **Trazabilidad:** el manifiesto de particiones se reconstruyó con bytes idénticos a su huella registrada. Los archivos originales detallados de búsqueda/experimento no estaban disponibles. Una reproducción independiente del 10 de noviembre coincide con los diez candidatos en las métricas guardadas, conteos, calibración y umbrales; también coinciden hiperparámetros y los cinco folds del ganador. Sus archivos se identifican como reproducción y no sustituyen el historial original. No se dispone de las probabilidades originales de prueba para recuperar su curva ROC; no se vuelve a usar prueba para producirla.
 
-## Usar la entrega local sin reentrenar
+## Usar la entrega sin reentrenar
 
 La clonación o actualización de `main` incluye estos archivos propios y comprobados:
 
@@ -204,9 +224,9 @@ El ganador se explica con permutation sobre su probabilidad calibrada completa, 
 
 ## Notebooks y ruta de aprendizaje
 
-Los notebooks y sus copias ejecutadas se entregan localmente, sin publicarlos en GitHub:
+El repositorio incluye los tres notebooks y copias con sus salidas verificadas, para que el docente pueda revisar tanto el procedimiento como los resultados:
 
-| Orden | Fuente local | Copia ejecutada y propósito |
+| Orden | Fuente reproducible | Copia ejecutada y propósito |
 |---|---|---|
 | 1 | `notebooks/01_eda_limpieza.ipynb` | `reports/data/01_eda_limpieza_ejecutado.ipynb`: calidad, limpieza, derivadas y nueve gráficos de entrenamiento |
 | 2 | `notebooks/02_modelos_evaluacion.ipynb` | `reports/evaluation/02_modelos_evaluacion_ejecutado.ipynb`: protocolo, CV/calibración, comparación, selección y prueba guardada |
@@ -214,7 +234,7 @@ Los notebooks y sus copias ejecutadas se entregan localmente, sin publicarlos en
 
 Abrirlos con el kernel de `.venv` desde la raíz o `notebooks/`. Las fuentes no incluyen outputs. El notebook 02 consume la reproducción verificada configurada en `src/config.py`; no lanza búsquedas ni prueba final al ejecutar sus celdas. Para aprender el código, seguir el mismo orden: `schema/data/features`, `train/evaluate/reproduce`, `inference/explain/reporting`. Las reglas comerciales se mantienen en `recommendations.py`.
 
-Los notebooks y las figuras EDA pueden compartirse con la entrega manual local `entrega_equipo/Chuard_entrega_cientifica.zip`; es una copia de la entrega anterior a la publicación, no reemplaza `main`. El código, ganador y resultados aprobados se actualizan por Git. Extraer el ZIP en una carpeta nueva para consultar los materiales adicionales, sin sobrescribir cambios propios. El CSV crudo y el entorno virtual se obtienen por los comandos anteriores.
+El código, ganador, resultados, notebooks y figuras EDA se actualizan por Git; el equipo y el docente no necesitan un ZIP separado para esos materiales. El CSV original y el entorno Python se obtienen por los comandos anteriores. Las fuentes de notebooks no contienen salidas; sus copias ejecutadas conservan tablas, figuras y advertencias, con rutas del proyecto en lugar de rutas personales.
 
 ## Desarrollo en equipo
 
@@ -226,7 +246,7 @@ Cada persona usa su propia copia local y una rama distinta:
 | Entrenamiento y calibración de candidatos | `modelos-inferencia` | `train.py`, candidatos de modelos y resultados de CV |
 | Web y retención | `web-retencion` | `app.py`, futuros componentes visuales y `recommendations.py` |
 
-El frente 2 entrega candidatos entrenados con sus pipelines y metadatos; el frente 1 calcula métricas/curvas en validación, selecciona umbral y ganador, realiza la prueba final, exporta el artefacto y completa inferencia. El frente 3 conserva web/retención/aceptación sin trabajo adicional. Antes de modificar interfaces, acordar entradas, salidas y metadatos entre los tres frentes. Preservar cambios existentes y comprobar integración por hitos. No publicar archivos ajenos, secretos, entornos, cachés o temporales; revisar las rutas y el contenido preparado, añadiendo archivos explícitos. La información del repositorio se centraliza en este README. Se aprobó publicar también el ganador y sus reportes verificados; `.gitignore` permite únicamente esas rutas de artefactos, no cualquier resultado futuro. `.gitattributes` conserva sus bytes exactos para mantener las huellas entre sistemas.
+El frente 2 entrega candidatos entrenados con sus pipelines y metadatos; el frente 1 calcula métricas/curvas en validación, selecciona umbral y ganador, realiza la prueba final, exporta el artefacto y completa inferencia. El frente 3 conserva web/retención/aceptación sin trabajo adicional. Antes de modificar interfaces, acordar entradas, salidas y metadatos entre los tres frentes. Preservar cambios existentes y comprobar integración por hitos. No publicar archivos ajenos, secretos, entornos, cachés o temporales; revisar las rutas y el contenido preparado, añadiendo archivos explícitos. La información del repositorio se centraliza en este README. Se aprobó publicar el ganador, reportes verificados, notebooks y EDA como entrega académica; `.gitignore` permite únicamente esas rutas, no cualquier archivo futuro. `.gitattributes` conserva los bytes exactos de los artefactos para mantener las huellas entre sistemas.
 
 ## Comprobaciones
 

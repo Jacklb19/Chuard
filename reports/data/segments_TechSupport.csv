@@ -1,0 +1,4 @@
+TechSupport,n,churn_count,churn_rate,small_segment
+No,2040,865,0.42401960784313725,False
+No internet service,930,68,0.07311827956989247,False
+Yes,1255,188,0.149800796812749,False

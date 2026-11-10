@@ -1,0 +1,201 @@
+{
+  "filename": "WA_Fn-UseC_-Telco-Customer-Churn.csv",
+  "source_url": "https://www.kaggle.com/datasets/blastchar/telco-customer-churn",
+  "sha256": "88be4b93fbe0cc83421af1c503794c97c342eca914c1576db7c276e61d61358a",
+  "rows": 7043,
+  "columns": [
+    "customerID",
+    "gender",
+    "SeniorCitizen",
+    "Partner",
+    "Dependents",
+    "tenure",
+    "PhoneService",
+    "MultipleLines",
+    "InternetService",
+    "OnlineSecurity",
+    "OnlineBackup",
+    "DeviceProtection",
+    "TechSupport",
+    "StreamingTV",
+    "StreamingMovies",
+    "Contract",
+    "PaperlessBilling",
+    "PaymentMethod",
+    "MonthlyCharges",
+    "TotalCharges",
+    "Churn"
+  ],
+  "column_count": 21,
+  "matches_expected_shape": true,
+  "raw_dtypes": {
+    "customerID": "object",
+    "gender": "object",
+    "SeniorCitizen": "object",
+    "Partner": "object",
+    "Dependents": "object",
+    "tenure": "object",
+    "PhoneService": "object",
+    "MultipleLines": "object",
+    "InternetService": "object",
+    "OnlineSecurity": "object",
+    "OnlineBackup": "object",
+    "DeviceProtection": "object",
+    "TechSupport": "object",
+    "StreamingTV": "object",
+    "StreamingMovies": "object",
+    "Contract": "object",
+    "PaperlessBilling": "object",
+    "PaymentMethod": "object",
+    "MonthlyCharges": "object",
+    "TotalCharges": "object",
+    "Churn": "object"
+  },
+  "normalized_dtypes": {
+    "customerID": "string",
+    "gender": "object",
+    "SeniorCitizen": "float64",
+    "Partner": "object",
+    "Dependents": "object",
+    "tenure": "float64",
+    "PhoneService": "object",
+    "MultipleLines": "object",
+    "InternetService": "object",
+    "OnlineSecurity": "object",
+    "OnlineBackup": "object",
+    "DeviceProtection": "object",
+    "TechSupport": "object",
+    "StreamingTV": "object",
+    "StreamingMovies": "object",
+    "Contract": "object",
+    "PaperlessBilling": "object",
+    "PaymentMethod": "object",
+    "MonthlyCharges": "float64",
+    "TotalCharges": "float64",
+    "Churn": "object"
+  },
+  "empty_values": {
+    "customerID": 0,
+    "gender": 0,
+    "SeniorCitizen": 0,
+    "Partner": 0,
+    "Dependents": 0,
+    "tenure": 0,
+    "PhoneService": 0,
+    "MultipleLines": 0,
+    "InternetService": 0,
+    "OnlineSecurity": 0,
+    "OnlineBackup": 0,
+    "DeviceProtection": 0,
+    "TechSupport": 0,
+    "StreamingTV": 0,
+    "StreamingMovies": 0,
+    "Contract": 0,
+    "PaperlessBilling": 0,
+    "PaymentMethod": 0,
+    "MonthlyCharges": 0,
+    "TotalCharges": 11,
+    "Churn": 0
+  },
+  "duplicate_rows": 0,
+  "duplicate_customer_ids": 0,
+  "rows_sharing_profile_and_label": 42,
+  "duplicates_removed": 0,
+  "duplicate_policy": "No eliminar perfiles iguales de clientes con identificadores distintos.",
+  "target_counts": {
+    "No": 5174,
+    "Yes": 1869
+  },
+  "categories": {
+    "gender": [
+      "Female",
+      "Male"
+    ],
+    "Partner": [
+      "No",
+      "Yes"
+    ],
+    "Dependents": [
+      "No",
+      "Yes"
+    ],
+    "PhoneService": [
+      "No",
+      "Yes"
+    ],
+    "MultipleLines": [
+      "No",
+      "No phone service",
+      "Yes"
+    ],
+    "InternetService": [
+      "DSL",
+      "Fiber optic",
+      "No"
+    ],
+    "OnlineSecurity": [
+      "No",
+      "No internet service",
+      "Yes"
+    ],
+    "OnlineBackup": [
+      "No",
+      "No internet service",
+      "Yes"
+    ],
+    "DeviceProtection": [
+      "No",
+      "No internet service",
+      "Yes"
+    ],
+    "TechSupport": [
+      "No",
+      "No internet service",
+      "Yes"
+    ],
+    "StreamingTV": [
+      "No",
+      "No internet service",
+      "Yes"
+    ],
+    "StreamingMovies": [
+      "No",
+      "No internet service",
+      "Yes"
+    ],
+    "Contract": [
+      "Month-to-month",
+      "One year",
+      "Two year"
+    ],
+    "PaperlessBilling": [
+      "No",
+      "Yes"
+    ],
+    "PaymentMethod": [
+      "Bank transfer (automatic)",
+      "Credit card (automatic)",
+      "Electronic check",
+      "Mailed check"
+    ]
+  },
+  "total_charges_empty_rows": [
+    489,
+    754,
+    937,
+    1083,
+    1341,
+    3332,
+    3827,
+    4381,
+    5219,
+    6671,
+    6755
+  ],
+  "total_charges_empty_tenure": {
+    "0": 11
+  },
+  "total_charges_zero_normalizations": 11,
+  "validation_warnings": [],
+  "scope": "Calidad estructural completa; no usar para seleccionar modelos o reglas estadísticas."
+}

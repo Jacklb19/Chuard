@@ -1,0 +1,86 @@
+{
+  "rows": 4225,
+  "target_counts": {
+    "No": 3104,
+    "Yes": 1121
+  },
+  "numeric": {
+    "SeniorCitizen": {
+      "observed": 4225,
+      "missing": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "median": 0.0,
+      "mean": 0.16142011834319528,
+      "q1": 0.0,
+      "q3": 0.0,
+      "iqr_applicable": false,
+      "iqr_lower": null,
+      "iqr_upper": null,
+      "outside_iqr": null
+    },
+    "tenure": {
+      "observed": 4225,
+      "missing": 0,
+      "min": 0.0,
+      "max": 72.0,
+      "median": 29.0,
+      "mean": 32.44284023668639,
+      "q1": 9.0,
+      "q3": 55.0,
+      "iqr_applicable": true,
+      "iqr_lower": -60.0,
+      "iqr_upper": 124.0,
+      "outside_iqr": 0
+    },
+    "MonthlyCharges": {
+      "observed": 4225,
+      "missing": 0,
+      "min": 18.4,
+      "max": 118.75,
+      "median": 70.55,
+      "mean": 64.89450887573965,
+      "q1": 35.4,
+      "q3": 90.1,
+      "iqr_applicable": true,
+      "iqr_lower": -46.65,
+      "iqr_upper": 172.14999999999998,
+      "outside_iqr": 0
+    },
+    "TotalCharges": {
+      "observed": 4225,
+      "missing": 0,
+      "min": 0.0,
+      "max": 8684.8,
+      "median": 1372.45,
+      "mean": 2295.4894082840237,
+      "q1": 399.6,
+      "q3": 3862.55,
+      "iqr_applicable": true,
+      "iqr_lower": -4794.825,
+      "iqr_upper": 9056.975,
+      "outside_iqr": 0
+    }
+  },
+  "training_ranges": {
+    "SeniorCitizen": {
+      "min": 0.0,
+      "max": 1.0
+    },
+    "tenure": {
+      "min": 0.0,
+      "max": 72.0
+    },
+    "MonthlyCharges": {
+      "min": 18.4,
+      "max": 118.75
+    },
+    "TotalCharges": {
+      "min": 0.0,
+      "max": 8684.8
+    }
+  },
+  "high_monthly_charges": 90.1,
+  "high_monthly_charges_rule": "Q3 de MonthlyCharges del entrenamiento; propuesta comercial.",
+  "scope": "Entrenamiento exclusivamente; IQR es diagnóstico y no elimina/trunca valores."
+}

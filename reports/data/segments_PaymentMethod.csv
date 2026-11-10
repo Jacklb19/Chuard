@@ -1,0 +1,5 @@
+PaymentMethod,n,churn_count,churn_rate,small_segment
+Bank transfer (automatic),933,151,0.16184351554126475,False
+Credit card (automatic),915,137,0.14972677595628414,False
+Electronic check,1410,643,0.45602836879432623,False
+Mailed check,967,190,0.19648397104446744,False
