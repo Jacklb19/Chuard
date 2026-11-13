@@ -1,0 +1,9 @@
+{
+  "rows": 100,
+  "seconds": 34.92866799997864,
+  "source": "synthetic example profiles",
+  "environment": "Windows Python 3.11.16 local",
+  "model_name": "xgboost__sin_derivadas",
+  "includes": "probability, SHAP top factors, recommendations per row",
+  "fits_executed": 0
+}

@@ -1,0 +1,12 @@
+# Runtime declarations for packaging and lock maintenance.
+numpy==2.4.6
+pandas==2.3.3
+scikit-learn==1.9.1
+joblib==1.6.0
+streamlit==1.67.0
+plotly==6.9.0
+shap==0.51.0
+xgboost==3.2.0
+lightgbm==4.7.0
+# SHAP 0.51 calls an API deprecated by Matplotlib 3.11.
+matplotlib==3.10.9

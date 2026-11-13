@@ -130,3 +130,10 @@ kaggle.json
 !/reports/data/segments_TechSupport.csv
 !/reports/data/source_manifest.json
 !/reports/data/training_summary.json
+
+# Informe académico y evidencia de capacidad de la aplicación aprobada.
+!/reports/informe_final.pdf
+!/reports/application/
+!/reports/application/benchmark.json
+!/reports/application/resumen.jpg
+!/reports/application/prediccion.jpg

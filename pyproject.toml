@@ -1,7 +1,7 @@
 [project]
 name = "chuard"
 version = "0.1.0"
-description = "Base académica para predicción y análisis de abandono Telco"
+description = "Customer churn prediction and analysis for the Chuard academic project"
 requires-python = ">=3.11,<3.13"
 dynamic = ["dependencies"]
 
@@ -13,10 +13,13 @@ requires = ["setuptools>=75"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-packages = ["src"]
+packages = ["src", "ui", "ui.views"]
+
+[tool.setuptools.package-data]
+ui = ["assets/*.css", "assets/*.txt"]
 
 [tool.setuptools.dynamic]
-dependencies = {file = ["requirements.txt"]}
+dependencies = {file = ["requirements.in"]}
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

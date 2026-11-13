@@ -1,11 +1,2 @@
-numpy>=1.26,<3
-pandas>=2.2,<3
-scikit-learn>=1.6,<2
-joblib>=1.4,<2
-streamlit>=1.40,<2
-plotly>=5.24,<7
-shap>=0.46,<1
-xgboost>=2.1,<4
-lightgbm>=4.5,<5
-# SHAP 0.51 usa una API que Matplotlib 3.11 marca como obsoleta.
-matplotlib>=3.9,<3.11
+# The web and local installs use the same verified dependency lock.
+-r requirements-lock.txt

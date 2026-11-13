@@ -7,6 +7,7 @@
 *.csv text eol=lf
 *.joblib binary
 *.png binary
+*.jpg binary
 *.pdf binary
 # Los manifiestos verifican SHA-256 de bytes exactos, incluidos saltos de línea.
 # CR forma parte de CRLF, no de espacios sobrantes; se mantienen los demás chequeos.

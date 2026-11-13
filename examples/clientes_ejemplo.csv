@@ -1,0 +1,7 @@
+customerID,gender,SeniorCitizen,Partner,Dependents,tenure,PhoneService,MultipleLines,InternetService,OnlineSecurity,OnlineBackup,DeviceProtection,TechSupport,StreamingTV,StreamingMovies,Contract,PaperlessBilling,PaymentMethod,MonthlyCharges,TotalCharges,Churn
+DEMO-001,Female,0,No,No,6,Yes,No,Fiber optic,No,No,No,No,Yes,Yes,Month-to-month,Yes,Electronic check,95.0,570.0,No
+DEMO-002,Female,0,No,No,48,Yes,No,DSL,No,No,No,Yes,Yes,Yes,Two year,Yes,Electronic check,62.0,2976.0,No
+DEMO-003,Female,0,No,No,1,Yes,No,Fiber optic,No,No,No,No,Yes,Yes,Month-to-month,Yes,Electronic check,103.0,103.0,No
+DEMO-004,Female,0,No,No,24,Yes,No,DSL,No,No,No,Yes,Yes,Yes,One year,Yes,Electronic check,55.0,1320.0,No
+DEMO-005,Female,0,No,No,72,Yes,No,No,No internet service,No internet service,No internet service,No internet service,No internet service,No internet service,Two year,Yes,Electronic check,20.0,1440.0,No
+DEMO-006,Female,0,No,No,12,Yes,No,DSL,No,No,No,No,Yes,Yes,Month-to-month,Yes,Electronic check,75.0,900.0,Yes

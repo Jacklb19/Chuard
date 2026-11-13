@@ -1,0 +1,27 @@
+.stApp {background:#f5f6f2;color:#30423a}
+.stApp, .stApp input, .stApp textarea, .stApp button, .stApp select {font-family:'DM Sans',sans-serif}
+h1,h2,h3 {color:#1c302a;font-family:'Newsreader',Georgia,serif!important;font-weight:500!important;letter-spacing:-.025em}
+h1 {font-size:2.9rem!important;line-height:1.1!important;padding-bottom:.4rem!important}
+h2 {font-size:1.65rem!important} h3 {font-size:1.4rem!important}
+.block-container {max-width:1440px;padding:3rem 3rem 4rem}
+[data-testid="stSidebar"] {background:#f9faf7;border-right:1px solid #dce2da;min-width:228px;max-width:250px}
+[data-testid="stSidebar"] .block-container {padding:1.5rem 1rem}
+[data-testid="stSidebar"] button {text-align:left;border-radius:6px}
+[data-testid="stSidebar"][data-collapsed="true"] {position:absolute!important}
+[data-testid="stPageLink"] a {padding:.75rem .8rem;border-radius:6px;margin-bottom:.35rem}
+[data-testid="stHeader"] {background:rgba(245,246,242,.94)}
+[data-testid="stVerticalBlockBorderWrapper"]>div {border-color:#dce2da!important;border-radius:10px!important}
+[data-testid="stDataFrame"] {border:1px solid #dce2da;border-radius:8px;overflow:hidden}
+.eyebrow {font-size:.67rem;font-weight:600;letter-spacing:.14em;color:#65736b;margin-bottom:14px}
+.page-description {color:#65736b;font-size:.95rem;max-width:780px;margin-bottom:1.4rem;line-height:1.6}
+.brand {font-family:Newsreader,Georgia,serif;font-size:2.2rem;color:#1c302a;letter-spacing:-.05em;margin:0 0 1.6rem}
+.brand span {font-family:'DM Sans';font-size:.65rem;display:block;letter-spacing:.13em;color:#65736b}
+.st-key-metric_strip {border-top:1px solid #dce2da;border-bottom:1px solid #dce2da;padding:1.1rem 0;margin-bottom:1rem}
+.metric-label {font-size:.72rem;color:#65736b;font-weight:500}
+.metric-value {font-family:'IBM Plex Mono',monospace;font-size:1.8rem;letter-spacing:-.07em;color:#1c302a;margin:.3rem 0}
+.metric-note {font-size:.68rem;color:#65736b}
+.probability {font-family:Newsreader,Georgia,serif;font-size:4.5rem;letter-spacing:-.06em;line-height:1.15}
+.risk-tag {font-size:.85rem;font-weight:600;margin:0 0 16px}
+button:focus-visible, a:focus-visible {outline:3px solid #896715!important;outline-offset:3px}
+@media(max-width:768px) {.block-container{padding:2rem 1.1rem}h1{font-size:2.25rem!important}.metric-value{font-size:1.5rem}.page-description{font-size:.88rem}}
+@media(prefers-reduced-motion:reduce) {*{scroll-behavior:auto!important;transition:none!important}}

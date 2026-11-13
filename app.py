@@ -1,12 +1,6 @@
-"""Punto de entrada reservado para la interfaz de Chuard, aún no aprobada."""
+"""Run with: streamlit run app.py."""
 
-
-def main() -> None:
-    raise SystemExit(
-        "Interfaz Streamlit pendiente de implementación. Consulte README.md. "
-        "La base no incluye todavía una aplicación Streamlit funcional."
-    )
-
+from ui.app import main
 
 if __name__ == "__main__":
     main()

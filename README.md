@@ -2,25 +2,25 @@
 
 Proyecto académico de minería de datos para estimar abandono de clientes de telecomunicaciones, comparar cinco algoritmos y presentar explicaciones y sugerencias de retención.
 
-**Estado:** datos, EDA, entrenamiento, evaluación, inferencia y SHAP integrados. Se incluye un ganador verificado: XGBoost sin derivadas, calibración sigmoid, versión 1.0.0 y umbral 0.25, junto con sus resultados científicos, los tres notebooks y sus ejecuciones. Se reprodujeron los diez candidatos usando solo entrenamiento/validación y coinciden con los reportes anteriores. La interfaz web sigue pendiente; `app.py` todavía informa esa situación. Datos crudos y documentos privados permanecen fuera de GitHub.
+**Estado:** aplicación Streamlit implementada e integrada con datos, EDA, entrenamiento, evaluación, inferencia, SHAP y retención. Ganador verificado XGBoost sin derivadas, calibrado sigmoid, versión 1.0.0 y umbral 0.25. Se incluyen tres notebooks con sus ejecuciones, resultados científicos e informe final PDF. **103 pruebas pasan**; Ruff y formato correctos. La publicación en Streamlit Community Cloud está preparada y pendiente de iniciar sesión en la cuenta existente. Datos crudos y documentos privados permanecen fuera de GitHub.
 
 ## Entrega académica al docente
 
-Esta lista sigue la especificación del proyecto Chuard; no sustituye una rúbrica adicional del docente. **La parte científica está disponible, pero la entrega final todavía necesita la aplicación, el informe PDF y la demostración del frente 3.**
+Esta lista sigue la especificación del proyecto Chuard; no sustituye una rúbrica adicional del docente. La parte científica, la aplicación y el informe están disponibles. La publicación remota se verifica por separado; no se presenta un enlace sin comprobar.
 
 | Entregable | Ubicación | Estado comprobado |
 |---|---|---|
-| Código, dependencias y pruebas | [`src/`](src/), [`tests/`](tests/), `requirements*.txt` | Implementados; 72 pruebas pasan, Ruff y formato correctos |
+| Código, dependencias y pruebas | [`src/`](src/), [`tests/`](tests/), `requirements*.txt` | Implementados; 103 pruebas pasan, Ruff y formato correctos |
 | Dataset documentado y calidad | [Fuente y descarga](#dataset-y-preparación), [reporte de calidad](reports/data/quality_report.json), [procedencia](reports/data/source_manifest.json) | CSV original obtenido aparte; fuente, huella, esquema, nulos y duplicados documentados |
 | Limpieza, EDA y derivadas | [Notebook 01](notebooks/01_eda_limpieza.ipynb), [ejecución](reports/data/01_eda_limpieza_ejecutado.ipynb), [figuras y tablas](reports/data/) | Ejecutado; nueve figuras basadas solo en entrenamiento |
 | Cinco modelos y evaluación | [Notebook 02](notebooks/02_modelos_evaluacion.ipynb), [ejecución](reports/evaluation/02_modelos_evaluacion_ejecutado.ipynb), [métricas](reports/metricas_modelos.csv), [reproducción](reports/modeling/reproduction_20261110_reanudada/) | Diez candidatos, CV, calibración, umbrales, selección y prueba final guardada |
 | Modelo exportado | [Ganador](models/best_model.joblib), [manifiesto](models/best_model.manifest.json) | Pipeline congelado, versiones, umbral y huellas verificados |
 | Explicabilidad | [Notebook 03](notebooks/03_interpretabilidad.ipynb), [ejecución](reports/explain/03_interpretabilidad_ejecutado.ipynb), [SHAP](reports/explain/) | Global e individual sobre probabilidad calibrada; reconstrucción comprobada |
-| Aplicación y aceptación | `app.py` y futuros componentes web | Pendiente del frente 3: formulario, CSV, dashboard, explicaciones y retención |
-| Informe final | `reports/informe_final.pdf` | Pendiente del frente 3 |
-| Publicación y demostración | URL de la aplicación y prueba de sus flujos | Pendiente; no hay enlace funcional verificado |
+| Aplicación y aceptación | [`app.py`](app.py), [`ui/`](ui/), [`tests/test_web.py`](tests/test_web.py) | Cinco secciones funcionales, pruebas de flujos y revisión visual local |
+| Informe final | [PDF académico](reports/informe_final.pdf), [generador](tools/build_report.py) | Diez páginas: metodología, EDA, comparación, evaluación, SHAP, web, límites y demo |
+| Publicación y demostración | [Guion de demostración](#demostración-al-docente) y despliegue | Demo local verificada; cuenta de Streamlit pendiente de acceso |
 
-Para la sustentación, recorrer notebooks 01 → 02 → 03: problema y objetivo; calidad/limpieza de datos; prevención de fuga; comparación de cinco familias con/sin derivadas; selección del ganador y umbral; errores FP/FN; explicación SHAP y límites. Después demostrar la aplicación cuando el frente 3 la termine. No presentar las recomendaciones como efectos de retención comprobados ni las métricas históricas como garantías futuras.
+Para la sustentación, recorrer notebooks 01 → 02 → 03: problema y objetivo; calidad/limpieza de datos; prevención de fuga; comparación de cinco familias con/sin derivadas; selección del ganador y umbral; errores FP/FN; explicación SHAP y límites. Después demostrar la aplicación con el ejemplo ficticio incluido. No presentar las recomendaciones como efectos de retención comprobados ni las métricas históricas como garantías futuras.
 
 La documentación académica disponible se centraliza aquí y en los notebooks. Los documentos privados de coordinación, prompts, archivos de agentes, entornos y cachés permanecen fuera del repositorio.
 
@@ -39,7 +39,44 @@ Si `python` no corresponde a Python 3.11, usa la ruta de esa instalación o `py 
 
 Alternativa con uv: `uv venv --python 3.11` y `uv pip install --python .venv/Scripts/python.exe -r requirements-dev-lock.txt`.
 
-`requirements-dev-lock.txt` registra el entorno comprobado en Windows/Python 3.11. Si otro sistema necesita resolver versiones distintas, usa `requirements-dev.txt` y documenta los cambios antes de actualizar los archivos comunes. `requirements-lock.txt` contiene las dependencias de ejecución.
+`requirements-dev-lock.txt` registra el entorno comprobado en Windows/Python 3.11. Si otro sistema necesita resolver versiones distintas, usa `requirements-dev.txt` y documenta los cambios antes de actualizar los archivos comunes. `requirements-lock.txt` contiene las dependencias de ejecución y `requirements.txt` lo incluye, también en Streamlit Cloud. `requirements.in` declara las dependencias directas para empaquetado y mantenimiento del lock. No actualizar versiones sin comprobar compatibilidad con el artefacto.
+
+## Ejecutar la aplicación
+
+No necesitas descargar el CSV crudo para usar la web: el modelo y los reportes publicados son suficientes.
+
+```powershell
+.venv\Scripts\python.exe -m streamlit run app.py
+```
+
+Abre la dirección local que indique Streamlit. Las cinco secciones son:
+
+- **Resumen:** métricas históricas, contratos, diez candidatos de validación y matriz final guardada.
+- **Predicción:** formulario de 19 variables; probabilidad real, decisión binaria, banda, cinco factores SHAP y exportación. Editar un dato invalida el resultado anterior. Los valores iniciales son ficticios.
+- **Cartera CSV:** UTF-8 con coma, hasta **100 registros y 10 MB**; valida el lote completo, calcula todas las explicaciones, muestra distribuciones y segmentos, permite buscar, filtrar por riesgo/contrato/internet y exportar. Hay un [CSV ficticio](examples/clientes_ejemplo.csv) descargable desde la web.
+- **Explicabilidad:** SHAP global sobre entrenamiento y contribuciones completas del cliente seleccionado por su posición técnica, incluso con IDs repetidos.
+- **Retención:** prioridad `probabilidad × MonthlyCharges`, recomendaciones y exportación. Con `Churn`, excluye los `Yes`; sin esa columna, advierte que se presupone una cartera activa.
+
+El umbral **0.25** produce la decisión binaria. Las bandas **0.35/0.65** son convenciones operativas y no equivalen a esa decisión. La exposición usa unidades del dataset, sin moneda confirmada; no es pérdida demostrada.
+
+Las carteras y sus resultados se conservan en la sesión, sin caché global de datos de usuarios ni escritura en disco. El botón **Borrar datos de esta sesión** los elimina. Cambiar la fuente invalida los resultados previos incluso si el archivo nuevo es inválido. Las exportaciones conservan el orden, codifican listas como JSON y neutralizan fórmulas de hoja de cálculo en texto. El modelo compartido se verifica por SHA-256 **antes** de abrir Joblib y exige las versiones de sus siete bibliotecas; para servir la web permite parches de Python 3.11. La reproducción científica mantiene la exigencia exacta 3.11.16. No se aceptan modelos subidos por usuarios y la aplicación nunca entrena.
+
+### Publicar en Streamlit Community Cloud
+
+Destino autorizado: cuenta existente de la usuaria. Configuración preparada según la [documentación oficial](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/app-dependencies): repositorio **Jacklb19/Chuard**, rama **main**, archivo **app.py**, Python **3.11** en Advanced settings. `requirements.txt` instala el lock comprobado; no se necesitan secretos ni el dataset original. La publicación sigue pendiente de acceso a esa cuenta; no hay URL pública verificada todavía.
+
+### Demostración al docente
+
+1. Mostrar Resumen y distinguir validación de prueba final guardada.
+2. En Predicción, calcular el perfil ficticio inicial y explicar probabilidad, bandas y factores. Cambiar un dato para mostrar que desaparece el resultado anterior.
+3. En Cartera CSV, pulsar **Probar con datos ficticios** y **Analizar cartera**; filtrar, seleccionar una fila y exportar resultados.
+4. En Explicabilidad, revisar Global y Cliente; comprobar referencia más contribuciones y explicar que SHAP no demuestra causalidad.
+5. En Retención, mostrar orden por exposición y sugerencias. **DEMO-006**, etiquetado `Churn=Yes`, queda excluido.
+6. Borrar los datos de sesión y presentar notebooks, PDF y repositorio. No usar información personal en la demostración pública.
+
+### Regenerar el informe
+
+El PDF se construye a partir de reportes guardados, sin entrenar ni evaluar de nuevo la prueba final. En un entorno separado de autoría instala `requirements-report.txt` y ejecuta `python tools/build_report.py`. Si existe una URL pública comprobada, pásala mediante `--application-url URL`. Revisa visualmente las diez páginas antes de sustituir la entrega.
 
 ## Qué incluye la base
 
@@ -50,7 +87,7 @@ Alternativa con uv: `uv venv --python 3.11` y `uv pip install --python .venv/Scr
 - Pipelines de cinco familias con/sin derivadas, búsqueda CV, calibración OOF y selección documentada.
 - Particiones estratificadas reproducibles, métricas, curvas ROC, calibración y matrices de confusión.
 - Verificación de recursos congelados, inferencia y generación de explicaciones reales sin entrenar.
-- Motor base de recomendaciones determinísticas; su presentación y aceptación corresponden al frente 3.
+- Recomendaciones determinísticas y lista de retención ordenada por exposición mensual, sin ejecutar campañas.
 - Pruebas con registros sintéticos identificados como tales, sin cifras de desempeño inventadas.
 
 `explain_customer` calcula SHAP cuando el bundle contiene un estimador entrenado y `explanation_context` con referencia exclusiva de entrenamiento. Sin esos recursos falla explícitamente, sin simular factores. El ganador real está comprobado en validación y mediante scoring individual/lote; la aplicación nunca debe llamar a `fit` ni entrenar.
@@ -70,8 +107,12 @@ src/
   reporting.py         verificación y entregables del ganador congelado
   reproduce.py         reproducción de entrenamiento/validación sin prueba
   recommendations.py   sugerencias determinísticas
+  application.py       carga verificada, filtros y exportación segura
 tests/                 comprobaciones técnicas
-app.py                 punto de entrada reservado para Streamlit
+ui/                    páginas, componentes, estilos y fuentes locales
+examples/              CSV de seis perfiles ficticios
+tools/build_report.py  generador del informe académico
+app.py                 punto de entrada Streamlit
 requirements*.txt      dependencias y versiones comprobadas
 pyproject.toml         configuración del proyecto y herramientas
 ```
@@ -220,7 +261,7 @@ One-Hot se agrupa por variable original sin perder la suma de contribuciones. La
 
 Inferencia conecta `validate_customers(..., training_ranges=bundle.get("training_ranges"))`: advierte rangos fuera de entrenamiento sin recortar entradas. Los límites proceden solo del entrenamiento; el umbral de cargos altos 90.1 es una propuesta comercial basada en su Q3. Las bandas 0.35/0.65 siguen siendo convenciones operativas y no se presentan como optimizadas ni como la decisión binaria de umbral 0.25.
 
-El ganador se explica con permutation sobre su probabilidad calibrada completa, referencia de 100 filas y muestra global de 100 clientes de entrenamiento. Se comprobó reconstrucción con error máximo aproximado de `2.11e-15` y consistencia individual/lote. El coste observado para 100 explicaciones en la ejecución verificada fue de unos 49 segundos; no garantiza latencia en otra máquina ni capacidad para lotes de 10.000 clientes. La interfaz deberá medir y comunicar límites antes de prometer capacidad, sin cambiar silenciosamente el contrato.
+El ganador se explica con permutation sobre su probabilidad calibrada completa, referencia de 100 filas y muestra global de 100 clientes de entrenamiento. Se comprobó reconstrucción con error máximo aproximado de `2.11e-15` y consistencia individual/lote. El coste observado para 100 explicaciones en la ejecución verificada fue de unos 49 segundos; no garantiza latencia en otra máquina ni capacidad para lotes de 10.000 clientes. La web limita cada lote a 100 registros y 10 MB. La medición posterior de 100 perfiles ficticios con scoring completo tardó 34,93 segundos en esta máquina; no es una garantía de latencia en Cloud. La evidencia está en `reports/application/benchmark.json`. El lector técnico conserva su límite de 10.000 filas para otros flujos; la interfaz aplica el límite operativo menor de forma explícita.
 
 ## Notebooks y ruta de aprendizaje
 
@@ -244,9 +285,9 @@ Cada persona usa su propia copia local y una rama distinta:
 |---|---|---|
 | Datos, evaluación, ganador, inferencia y SHAP | `datos-explicabilidad` | `schema.py`, `config.py`, `data.py`, `features.py`, `explain.py`, `evaluate.py`, `inference.py` |
 | Entrenamiento y calibración de candidatos | `modelos-inferencia` | `train.py`, candidatos de modelos y resultados de CV |
-| Web y retención | `web-retencion` | `app.py`, futuros componentes visuales y `recommendations.py` |
+| Web y retención | `web-retencion` | `app.py`, `ui/`, `application.py` y `recommendations.py` |
 
-El frente 2 entrega candidatos entrenados con sus pipelines y metadatos; el frente 1 calcula métricas/curvas en validación, selecciona umbral y ganador, realiza la prueba final, exporta el artefacto y completa inferencia. El frente 3 conserva web/retención/aceptación sin trabajo adicional. Antes de modificar interfaces, acordar entradas, salidas y metadatos entre los tres frentes. Preservar cambios existentes y comprobar integración por hitos. No publicar archivos ajenos, secretos, entornos, cachés o temporales; revisar las rutas y el contenido preparado, añadiendo archivos explícitos. La información del repositorio se centraliza en este README. Se aprobó publicar el ganador, reportes verificados, notebooks y EDA como entrega académica; `.gitignore` permite únicamente esas rutas, no cualquier archivo futuro. `.gitattributes` conserva los bytes exactos de los artefactos para mantener las huellas entre sistemas.
+El frente 2 entrega candidatos entrenados con sus pipelines y metadatos; el frente 1 calcula métricas/curvas en validación, selecciona umbral y ganador, realiza la prueba final, exporta el artefacto y completa inferencia. Los tres frentes quedaron integrados en main; la web, retención y aceptación se completaron con aprobación posterior de la usuaria. Para nuevos cambios, cada persona debe partir del main actualizado y trabajar en una rama propia. Antes de modificar interfaces, acordar entradas, salidas y metadatos entre los tres frentes. Preservar cambios existentes y comprobar integración por hitos. No publicar archivos ajenos, secretos, entornos, cachés o temporales; revisar las rutas y el contenido preparado, añadiendo archivos explícitos. La información del repositorio se centraliza en este README. Se aprobó publicar el ganador, reportes verificados, notebooks y EDA como entrega académica; `.gitignore` permite únicamente esas rutas, no cualquier archivo futuro. `.gitattributes` conserva los bytes exactos de los artefactos para mantener las huellas entre sistemas.
 
 ## Comprobaciones
 
@@ -258,12 +299,14 @@ El frente 2 entrega candidatos entrenados con sus pipelines y metadatos; el fren
 
 Las pruebas cubren validación, características, particiones, búsqueda/calibración/selección, persistencia, métricas, contrato de inferencia, recomendaciones, trazabilidad y SHAP real sobre modelos sintéticos de las cinco familias y calibradores. Comprueban reconstrucción, escala, consistencia individual/lote, gráficos, rechazo de insumos alterados y protección de prueba final; no miden rendimiento predictivo con Telco. La comprobación real separada es la reproducción y los notebooks de esta entrega. Las advertencias siguen tratándose como errores.
 
-Última comprobación local (10 de noviembre de 2026): **72 pruebas pasan**, Ruff y formato correctos; los tres notebooks se ejecutaron sin errores. Se revisaron visualmente comparación, ROC y SHAP. No se hicieron pruebas de una interfaz web terminada.
+Última comprobación local (13 de noviembre de 2026): **103 pruebas pasan**, Ruff y formato correctos; flujos de la aplicación comprobados con AppTest y navegador. Los tres notebooks y sus gráficos se verificaron el 10 de noviembre; sus resultados científicos no se modificaron al completar la web.
 
 Matplotlib se limita a versiones 3.9–3.10 por una API obsoleta usada por SHAP 0.51 en Matplotlib 3.11. No se silencian advertencias para pasar las pruebas. En scikit-learn 1.9, `SVC(probability=True)` está obsoleto: para SVM usar calibración explícita sobre el pipeline con particiones de entrenamiento separadas.
 
 ## Trabajo pendiente
 
-El frente 3 conserva las pantallas Streamlit (resumen, predicción individual, dashboard CSV, explicabilidad y retención), recomendaciones, pruebas de aceptación, informe final y despliegue. La maqueta y el plan necesitan aprobación antes de implementar una interfaz nueva. Esta entrega no implementa ni valida la web y no añade trabajo al frente 3.
+La aplicación, las recomendaciones, las pruebas de aceptación y el informe están implementados y verificados localmente. Falta iniciar sesión en la cuenta existente de Streamlit Community Cloud, desplegar y comprobar sus flujos en el servidor remoto. El README se actualizará con la URL después de verificarla; no se declara publicado un servicio que todavía no está comprobado.
 
 La limitación histórica es la ausencia de los archivos originales detallados del experimento y probabilidades originales de prueba; la reproducción se conserva como evidencia nueva identificada. No se inventan esos archivos ni se reutiliza prueba para compensar su ausencia. Acordar con el equipo los criterios comerciales de riesgo y los límites operativos de la aplicación. Push, merges y despliegues requieren autorización expresa.
+
+Las pruebas de web ejecutan el modelo congelado sobre perfiles ficticios y verifican los flujos con Streamlit AppTest; no evalúan otra vez la prueba final. La revisión en navegador comprueba la presentación de escritorio y móvil.
