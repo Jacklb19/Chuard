@@ -492,6 +492,8 @@ def explanation(bundle: dict) -> None:
             paper_bgcolor="rgba(0,0,0,0)",
             plot_bgcolor="rgba(0,0,0,0)",
             xaxis_title="Contribución (puntos de probabilidad)",
+            xaxis=dict(automargin=True),
+            yaxis=dict(automargin=True, tickfont=dict(size=11)),
             font=dict(family="DM Sans"),
         )
         st.plotly_chart(
