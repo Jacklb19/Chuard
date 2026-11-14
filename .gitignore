@@ -137,3 +137,5 @@ kaggle.json
 !/reports/application/benchmark.json
 !/reports/application/resumen.jpg
 !/reports/application/prediccion.jpg
+!/reports/application/publicacion.jpg
+!/reports/application/deployment.json

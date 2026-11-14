@@ -2,11 +2,11 @@
 
 Proyecto académico de minería de datos para estimar abandono de clientes de telecomunicaciones, comparar cinco algoritmos y presentar explicaciones y sugerencias de retención.
 
-**Estado:** aplicación Streamlit implementada e integrada con datos, EDA, entrenamiento, evaluación, inferencia, SHAP y retención. Ganador verificado XGBoost sin derivadas, calibrado sigmoid, versión 1.0.0 y umbral 0.25. Se incluyen tres notebooks con sus ejecuciones, resultados científicos e informe final PDF. **103 pruebas pasan**; Ruff y formato correctos. La publicación en Streamlit Community Cloud está preparada y pendiente de iniciar sesión en la cuenta existente. Datos crudos y documentos privados permanecen fuera de GitHub.
+**Estado:** aplicación Streamlit implementada e integrada con datos, EDA, entrenamiento, evaluación, inferencia, SHAP y retención. Ganador verificado XGBoost sin derivadas, calibrado sigmoid, versión 1.0.0 y umbral 0.25. Se incluyen tres notebooks con sus ejecuciones, resultados científicos e informe final PDF. **103 pruebas pasan**; Ruff y formato correctos. La aplicación pública está verificada en [chuard.streamlit.app](https://chuard.streamlit.app/), sin necesidad de iniciar sesión. Datos crudos y documentos privados permanecen fuera de GitHub.
 
 ## Entrega académica al docente
 
-Esta lista sigue la especificación del proyecto Chuard; no sustituye una rúbrica adicional del docente. La parte científica, la aplicación y el informe están disponibles. La publicación remota se verifica por separado; no se presenta un enlace sin comprobar.
+Esta lista sigue la especificación del proyecto Chuard; no sustituye una rúbrica adicional del docente. La parte científica, la aplicación y el informe están disponibles. La publicación remota también está comprobada con perfiles ficticios y acceso sin iniciar sesión.
 
 | Entregable | Ubicación | Estado comprobado |
 |---|---|---|
@@ -18,7 +18,7 @@ Esta lista sigue la especificación del proyecto Chuard; no sustituye una rúbri
 | Explicabilidad | [Notebook 03](notebooks/03_interpretabilidad.ipynb), [ejecución](reports/explain/03_interpretabilidad_ejecutado.ipynb), [SHAP](reports/explain/) | Global e individual sobre probabilidad calibrada; reconstrucción comprobada |
 | Aplicación y aceptación | [`app.py`](app.py), [`ui/`](ui/), [`tests/test_web.py`](tests/test_web.py) | Cinco secciones funcionales, pruebas de flujos y revisión visual local |
 | Informe final | [PDF académico](reports/informe_final.pdf), [generador](tools/build_report.py) | Diez páginas: metodología, EDA, comparación, evaluación, SHAP, web, límites y demo |
-| Publicación y demostración | [Guion de demostración](#demostración-al-docente) y despliegue | Demo local verificada; cuenta de Streamlit pendiente de acceso |
+| Publicación y demostración | [Guion de demostración](#demostración-al-docente) y despliegue | [Aplicación pública](https://chuard.streamlit.app/) verificada: cinco vistas, carga/descarga y sesiones separadas |
 
 Para la sustentación, recorrer notebooks 01 → 02 → 03: problema y objetivo; calidad/limpieza de datos; prevención de fuga; comparación de cinco familias con/sin derivadas; selección del ganador y umbral; errores FP/FN; explicación SHAP y límites. Después demostrar la aplicación con el ejemplo ficticio incluido. No presentar las recomendaciones como efectos de retención comprobados ni las métricas históricas como garantías futuras.
 
@@ -63,7 +63,7 @@ Las carteras y sus resultados se conservan en la sesión, sin caché global de d
 
 ### Publicar en Streamlit Community Cloud
 
-Destino autorizado: cuenta existente de la usuaria. Configuración preparada según la [documentación oficial](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/app-dependencies): repositorio **Jacklb19/Chuard**, rama **main**, archivo **app.py**, Python **3.11** en Advanced settings. `requirements.txt` instala el lock comprobado; no se necesitan secretos ni el dataset original. La publicación sigue pendiente de acceso a esa cuenta; no hay URL pública verificada todavía.
+**Aplicación publicada:** [https://chuard.streamlit.app/](https://chuard.streamlit.app/). Acceso público comprobado sin iniciar sesión. Se usa la cuenta existente de la usuaria. Configuración según la [documentación oficial](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/app-dependencies): repositorio **Jacklb19/Chuard**, rama **main**, archivo **app.py**, Python **3.11** en Advanced settings. `requirements.txt` instala el lock comprobado; no se necesitan secretos ni el dataset original. El servidor cargó el modelo propio y se comprobaron los cinco flujos. La evidencia de publicación y sus límites están en [deployment.json](reports/application/deployment.json). Una actualización futura de main puede reiniciar la aplicación; hay que volver a verificarla después de cambios funcionales o de dependencias.
 
 ### Demostración al docente
 
@@ -76,7 +76,7 @@ Destino autorizado: cuenta existente de la usuaria. Configuración preparada seg
 
 ### Regenerar el informe
 
-El PDF se construye a partir de reportes guardados, sin entrenar ni evaluar de nuevo la prueba final. En un entorno separado de autoría instala `requirements-report.txt` y ejecuta `python tools/build_report.py`. Si existe una URL pública comprobada, pásala mediante `--application-url URL`. Revisa visualmente las diez páginas antes de sustituir la entrega.
+El PDF se construye a partir de reportes guardados, sin entrenar ni evaluar de nuevo la prueba final. En un entorno separado de autoría instala `requirements-report.txt` y ejecuta `python tools/build_report.py`. El generador toma la URL comprobada de `reports/application/deployment.json`; para una publicación distinta usa `--application-url URL`. Revisa visualmente las diez páginas antes de sustituir la entrega.
 
 ## Qué incluye la base
 
@@ -303,10 +303,12 @@ Las pruebas cubren validación, características, particiones, búsqueda/calibra
 
 Matplotlib se limita a versiones 3.9–3.10 por una API obsoleta usada por SHAP 0.51 en Matplotlib 3.11. No se silencian advertencias para pasar las pruebas. En scikit-learn 1.9, `SVC(probability=True)` está obsoleto: para SVM usar calibración explícita sobre el pipeline con particiones de entrenamiento separadas.
 
-## Trabajo pendiente
+## Estado de entrega y límites
 
-La aplicación, las recomendaciones, las pruebas de aceptación y el informe están implementados y verificados localmente. Falta iniciar sesión en la cuenta existente de Streamlit Community Cloud, desplegar y comprobar sus flujos en el servidor remoto. El README se actualizará con la URL después de verificarla; no se declara publicado un servicio que todavía no está comprobado.
+La aplicación, las recomendaciones, las pruebas de aceptación, el informe y el despliegue están completados y verificados. Para presentar el proyecto al docente, comparte este repositorio, el [informe final](reports/informe_final.pdf) y [la aplicación pública](https://chuard.streamlit.app/); el guion de demostración está arriba. Comprueba requisitos adicionales de la rúbrica del docente, si existen.
 
 La limitación histórica es la ausencia de los archivos originales detallados del experimento y probabilidades originales de prueba; la reproducción se conserva como evidencia nueva identificada. No se inventan esos archivos ni se reutiliza prueba para compensar su ausencia. Acordar con el equipo los criterios comerciales de riesgo y los límites operativos de la aplicación. Push, merges y despliegues requieren autorización expresa.
 
 Las pruebas de web ejecutan el modelo congelado sobre perfiles ficticios y verifican los flujos con Streamlit AppTest; no evalúan otra vez la prueba final. La revisión en navegador comprueba la presentación de escritorio y móvil.
+
+Comprobación remota del 13 de noviembre de 2026: acceso anónimo, predicción, carga real del CSV ficticio, scoring de seis filas, descarga, SHAP global/individual, selección de otro cliente, cola de cinco activos, aislamiento y borrado de sesiones. La comparación del CSV Cloud/Linux con Windows arroja una diferencia máxima de probabilidad de `5,56e-17` y de valores SHAP de `1,60e-10` (no idénticos bit a bit; dentro de la tolerancia SHAP existente de `1e-6`), con iguales recomendaciones y orden de factores. No se cambiaron pruebas, tolerancias, modelo ni evaluación final. Los tiempos medidos localmente no garantizan latencia de Cloud.

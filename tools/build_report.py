@@ -5,7 +5,7 @@ import csv
 import json
 from datetime import date
 from pathlib import Path
-from xml.sax.saxutils import escape
+from xml.sax.saxutils import escape, quoteattr
 
 from reportlab.lib import colors
 from reportlab.lib.enums import TA_LEFT
@@ -35,6 +35,11 @@ def records(relative: str) -> list[dict]:
 
 
 def build_report(destination: Path, application_url: str | None) -> None:
+    deployment_path = ROOT / "reports/application/deployment.json"
+    if application_url is None and deployment_path.is_file():
+        deployment = json.loads(deployment_path.read_text(encoding="utf-8"))
+        if deployment.get("status") == "verified":
+            application_url = deployment["application_url"]
     styles = getSampleStyleSheet()
     styles.add(
         ParagraphStyle(
@@ -170,7 +175,8 @@ def build_report(destination: Path, application_url: str | None) -> None:
     paragraph(
         "Aplicación: "
         + (
-            escape(application_url)
+            f'<link href={quoteattr(application_url)} color="#25664f">'
+            f"{escape(application_url)}</link>"
             if application_url
             else "implementación local verificada; publicación en la cuenta existente de "
             "Streamlit Community Cloud pendiente de acceso. Consultar el estado en README."
@@ -416,12 +422,22 @@ def build_report(destination: Path, application_url: str | None) -> None:
 
     section("08", "La aplicación en funcionamiento")
     paragraph(
-        "Capturas de la aplicación Streamlit implementada, revisada en navegador local. "
+        "Capturas de la aplicación Streamlit implementada y verificada en navegador. "
         "La primera muestra el resumen científico; la segunda, una predicción real "
         "del modelo congelado sobre un perfil ficticio. No son pantallas simuladas."
     )
-    image("reports/application/resumen.jpg", 245)
-    paragraph("Resumen: contexto, métricas guardadas y análisis por contrato.", "SmallChuard")
+    image(
+        "reports/application/publicacion.jpg"
+        if application_url
+        else "reports/application/resumen.jpg",
+        245,
+    )
+    paragraph(
+        "Resumen publicado en Streamlit Community Cloud: acceso público verificado."
+        if application_url
+        else "Resumen: contexto, métricas guardadas y análisis por contrato.",
+        "SmallChuard",
+    )
     image("reports/application/prediccion.jpg", 245)
     paragraph(
         "Ejemplo ficticio DEMO-INDIVIDUAL: probabilidad estimada 72,2%, "
@@ -445,6 +461,17 @@ def build_report(destination: Path, application_url: str | None) -> None:
         "la web. Ejecutar python -m streamlit run app.py. El dataset crudo no es "
         "necesario para usar la aplicación con el modelo y reportes publicados."
     )
+    if application_url:
+        paragraph(
+            "<b>Publicación verificada.</b> La web abre sin iniciar sesión. Se comprobaron "
+            "predicción, carga del CSV ficticio de seis filas, scoring, descarga, SHAP "
+            "global e individual, cambio de cliente y retención de cinco activos. "
+            "También se verificaron aislamiento entre sesiones y borrado de resultados. "
+            "La descarga coincide numéricamente con Windows: diferencia máxima de "
+            "probabilidad 5,56e-17 y de valores SHAP 1,60e-10, dentro de la tolerancia "
+            "SHAP existente de 1e-6. Se conservan las mismas recomendaciones. "
+            "La comparación usa perfiles ficticios, sin reevaluar la prueba final."
+        )
     paragraph(
         "<b>Demostración sugerida (5-7 minutos).</b><br/>"
         "1. Resumen: explicar el problema, las particiones y la diferencia entre "

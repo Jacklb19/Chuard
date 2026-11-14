@@ -1,0 +1,51 @@
+{
+  "application_url": "https://chuard.streamlit.app/",
+  "provider": "Streamlit Community Cloud",
+  "status": "verified",
+  "verified_on": "2026-11-13",
+  "repository": "Jacklb19/Chuard",
+  "branch": "main",
+  "entrypoint": "app.py",
+  "configured_python_series": "3.11",
+  "verified_application_commit": "3d59e7a2d9ca542c446422804ae09b9d868531b6",
+  "model_sha256": "0bb0a8542c14f3e23e2fd779fc8b3dd2c488c6c28db069411d23e84b28d1cea1",
+  "checks": {
+    "anonymous_public_access": true,
+    "overview": true,
+    "individual_prediction": true,
+    "synthetic_csv_upload": true,
+    "batch_scoring": true,
+    "csv_download": true,
+    "global_shap": true,
+    "individual_shap": true,
+    "selected_customer_changes_explanation": true,
+    "retention_excludes_observed_churn": true,
+    "retention_priority_order": true,
+    "independent_sessions": true,
+    "clear_session": true
+  },
+  "synthetic_sample": {
+    "scored_rows": 6,
+    "active_retention_rows": 5,
+    "excluded_customer": "DEMO-006"
+  },
+  "local_cloud_comparison": {
+    "rows": 6,
+    "source": "six fictitious example profiles; CSV downloaded from anonymous public Cloud session",
+    "max_abs_probability_difference": 5.551115123125783e-17,
+    "probabilities_match_atol": 1e-12,
+    "shap_factor_features_order_direction_match": true,
+    "shap_values_bitwise_identical": false,
+    "max_abs_shap_numeric_difference": 1.5909157324855983e-10,
+    "existing_shap_contract_atol": 1e-06,
+    "same_recommendations": true,
+    "reserved_test_evaluated": false
+  },
+  "limits": {
+    "web_max_rows": 100,
+    "web_max_upload_bytes": 10485760,
+    "cloud_latency_guaranteed": false,
+    "recommendations_have_proven_causal_effects": false,
+    "final_test_reevaluated": false
+  }
+}
